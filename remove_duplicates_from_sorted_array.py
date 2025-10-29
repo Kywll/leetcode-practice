@@ -6,9 +6,14 @@ Consider the number of unique elements in nums to be k​​​​​​​​�
 The first k elements of nums should contain the unique numbers in sorted order. The remaining elements beyond index k - 1 can be ignored.
 
 My thought process:
+The approach was to iterate through the list with two pointers which is i and j then you try to
+see if their values are equal, if yes, then you remove the value of the pointer ahead which is
+j. However, if it's not equals, then you just increment them both by one to move forward.
+
 
 Time & space complexity:
-
+O(n^2) time due to using pop() 
+O(1) space
 
 '''
 
@@ -17,19 +22,17 @@ class Solution(object):
         i = 0
         j = 1
         while j < len(nums):
-            while nums[i] == nums[j]:
+            if nums[i] == nums[j]:
                 nums.pop(j)
-            i+=1
-            j+=1
+            else:
+                i+=1
+                j+=1
         k = len(nums)
-        return k, nums
+        return k
 
 
-nums = [1,1,2]
+nums = [1,1,1,1,1,1]
 g = Solution()
 
-result = g.removeDuplicates(nums)
-print(result)
-print(len(result))
-
+print(g.removeDuplicates(nums))
 
