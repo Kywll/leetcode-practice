@@ -38,26 +38,49 @@ g = Solution()
 print(g.twoSum(nums, target))
 
 
-
-
-class Better_Solution(object):
-    def twoSum(self, nums, target):
-        result = []
         
-
 nums = [1, 2, 3, 4, 5]
 target = 9
 
-k = Better_Solution()
-
-print(k.twoSum(nums, target))
 
 '''
 Challenge:
 Can you come up with an algorithm that is less than O(n^2) time complexity?
 
 
+
 Time & space complexity:
+O(n)
+
+WHAT I LEARNED:
+I learned how to use hashmaps and how you could create them dynamically 
+through a loop. You can use a hashmap to find if a value(key) is in there
+while only costing constant time. I learned that if I'm looking for a list
+multiple times, I can simply just use a hashmap in order to not lose as much 
+time searching. I simply have to find a way to get the value that I am looking 
+for if not already determined.
 
 
 '''
+
+
+class OtherSolution(object):
+    def twoSum(self, nums, target):
+        my_dic = {}
+        for i in range(len(nums)):
+            my_dic[nums[i]] = i
+            
+        for i in range(len(nums)):
+            current_target = target - nums[i]
+            if current_target in my_dic:
+                if my_dic[current_target] != i:
+                    return i, my_dic[current_target]
+
+h = OtherSolution()
+
+print(h.twoSum(nums, target))
+
+
+
+
+
