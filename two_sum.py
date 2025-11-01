@@ -84,3 +84,35 @@ print(h.twoSum(nums, target))
 
 
 
+'''
+My Thought Process:
+This time the goal is to be able to find the nums for the target without making the hashmap 
+beforehand(one pass). What can be done is to first check if the complement is in the hashmap
+and return it's value which is the index along with the current index. If not in hashmap, then
+simply add the current index to the hashmap. This was done so that you can prevent the same 
+index to be returned if the complement is the same number as the current index. Inserting the 
+currenth index to the hashmap first would make it so that you won't be able to check the previous
+value in the hashmap because it will be overwritten by the current index.
+
+What I learned:
+same key overwrites the previous one with the same key name
+
+
+'''
+
+
+class BestSolution(object):
+    def twoSum(self, nums, target):
+        dic = {}
+
+        for i in range(len(nums)):
+            complement = target - nums[i]
+
+            if complement in dic:
+                return [dic[complement], i]
+
+            dic[nums[i]] = i
+
+j = BestSolution()
+
+print(j.twoSum(nums, target))
