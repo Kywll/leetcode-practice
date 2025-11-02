@@ -41,4 +41,18 @@ g = Solution()
 print(g.longestCommonPrefix(strs))
 
 
+class BetterSolution(object):
+    def longestCommonPrefix(self, strs):
+        result = strs[0]
+        for i in range(1, len(strs)):
+            j = 0
+            while j < len(strs[i]) and j < len(result):
+                if strs[i][j] != result[j]:
+                    result = result[:j]
+                j+=1
+            result = result[:j]
+        return result
+h = Solution()
 
+
+print(h.longestCommonPrefix(strs))

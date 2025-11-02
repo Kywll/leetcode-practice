@@ -36,3 +36,31 @@ g = Solution()
 
 print(g.removeDuplicates(nums))
 
+class BetterSolution(object):
+    def removeDuplicates(self, nums):
+        i = 1
+        j = 1
+        while i < len(nums) and j < len(nums):
+            if nums[j] != nums[j-1]:
+                nums[i] = nums[j]
+                i+=1
+            j+=1
+        return i
+
+nums = [1,1, 2]
+h = BetterSolution()
+
+print(h.removeDuplicates(nums))
+
+'''
+Thought Process:
+So the thought process is to have 2 pointers that scans the array and make the right pointer
+scan ahead and check if the left of the right pointer is equals to it or not. If yes, then that
+means it is a duplicate and you simply have to move on, if not then that means that the current
+index of right pointer is unique and you have to set the value of left pointer index into the 
+value of right pointer current index, this is done so that it takes 0(1) space complexity
+and done in place.
+
+What I learned:
+A different way to use 2 different pointers
+'''
