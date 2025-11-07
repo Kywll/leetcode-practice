@@ -41,3 +41,48 @@ print(g.isAnagram(s, t))
 
 
 
+'''
+Hashmap Solution
+
+My Thought Process:
+For a more faster way of solving, you can simply just create hashmaps for both and use the 
+characters as key on the hashmap and count their occurrences then compare it. If it's not the 
+same, then return false, but if the loop ends, then return True since that means all character
+occurrences are equals and they are an anagram of each other.
+
+Time & space complexity:
+O(n)
+O(1)
+'''
+
+class OtherSolution(object):
+    def isAnagram(self, s, t):
+        if len(s) != len(t):
+            return False
+        dicS = {}
+        dicT = {} 
+        for i in range(len(s)):
+            if s[i] in dicS:
+                dicS[s[i]] +=1
+            else:
+                dicS[s[i]] = 1
+            if t[i] in dicT:
+                dicT[t[i]] +=1
+            else:
+                dicT[t[i]] = 1
+        key_of_s = list(dicS.keys())
+        for k in key_of_s:
+            if dicS[k] != dicT[k]:
+                return False
+        return True
+
+g = OtherSolution()
+
+s = "anagram"
+t = "nagaram"
+
+print(g.isAnagram(s, t))
+
+
+
+
