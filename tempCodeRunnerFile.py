@@ -1,3 +1,1 @@
 
-            print(dic[s][j])
-            
