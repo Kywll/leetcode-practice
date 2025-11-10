@@ -51,3 +51,29 @@ strs = ["eat","tea","tan","ate","nat","bat"]
 print(g.groupAnagrams(strs))
 
 
+
+
+'''
+Thought Process:
+You can simply just use a foreach loop since you are simply just trying to insert the words inside the string into a hashmap. Instead of storing indices, you can simply just
+store the actual word itself into a list value of the key which is the sorted value of the current word. That way, it is automatically grouped up together without requiring
+you to manually do it.
+
+'''
+
+class OtherSolution(object):
+    def groupAnagrams(self, strs):
+        dic = {}
+        for word in strs:
+            new = "".join(sorted(word))
+            if new not in dic:
+                dic[new] = []
+            dic[new].append(word)
+        return list(dic.values())
+
+        
+
+g = OtherSolution()
+
+strs = ["eat","tea","tan","ate","nat","bat"]
+print(g.groupAnagrams(strs))
