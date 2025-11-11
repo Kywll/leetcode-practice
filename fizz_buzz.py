@@ -11,10 +11,13 @@ answer[i] == "Buzz" if i is divisible by 5.
 answer[i] == i (as a string) if none of the above conditions are true.
 
 My thought process:
-
+To check if a number is divisible to 3 or 5, just use the modulus sign and check if it 
+is equals to 0, if it is then that means it's divisible, and if not, then that means 
+it's not divisible.
 
 Time & space complexity:
-
+O(n) time
+O(n) space
 '''
 
 
