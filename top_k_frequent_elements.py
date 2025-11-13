@@ -84,4 +84,35 @@ class Solution(object):
 
 
 
+import heapq
 
+class Solution:
+    def topKFrequent(self, nums, k):
+        # Step 1: Count frequency manually
+        freq = {}
+        for n in nums:
+            if n in freq:
+                freq[n] += 1
+            else:
+                freq[n] = 1
+
+        # Step 2: Build a min-heap of size k
+        heap = []
+        for key in freq:
+            heapq.heappush(heap, (freq[key], key))
+            
+            if len(heap) > k:
+                heapq.heappop(heap)
+        print(heap)
+        # Step 3: Extract the elements (top k frequent)
+        result = []
+        while heap:
+            result.append(heapq.heappop(heap)[1])
+            print(result)
+        return result
+
+g = Solution()
+
+nums = [1,1, 2, 3, 2, 2]
+k = 2
+print(g.topKFrequent(nums, k))
