@@ -76,3 +76,49 @@ g = Solution()
 nums = [0,1,2,3,4]
 print(g.productExceptSelf(nums))
 
+'''
+Thought Process:
+The idea was to calculate the prducts of each numbers before the current index and also calculate
+the product of all numbers after the current index then multiply them together after you calculated
+them. This is also stored so that you first store products of previous numbers one by one and 
+multiplying it again to the previous result or products. This is done so that we can choose until
+what product before or after the current index is in. These arrays are filled by multiplying each 
+new element with the result previously computed, so each step reuses earlier results.
+
+Time & space complexity:
+O(n) time
+O(n) space
+'''
+
+
+class Solution(object):
+    def productExceptSelf(self, nums):
+        n = len(nums)
+        prefix = [nums[0]] * n
+        postfix = [nums[len(nums)-1]] * n
+
+        for i in range(1, len(nums)):
+            prefix[i] = (prefix[i-1] * nums[i])
+        
+        for i in range(len(nums)-2, -1, -1):
+            postfix[i] = (postfix[i+1] * nums[i])
+        
+        result = [postfix[1]]
+        i = 0
+        j = 2
+        while i < len(nums)-2:
+            result.append(prefix[i] * postfix[j])
+            i+=1
+            j+=1
+        
+        result.append(prefix[i])
+        return result
+        
+g = Solution()
+
+
+nums = [1,2,3,4]
+print(g.productExceptSelf(nums))
+
+
+
