@@ -1,1 +1,1 @@
-1
+f [sorted_nums[i], sorted_nums[j], sorted_nums[k]] not in result:
