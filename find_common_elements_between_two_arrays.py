@@ -22,25 +22,6 @@ Time & space complexity:
 
 class Solution(object):
     def findIntersectionValues(self, nums1, nums2):
-        s1 = set(nums1)
-        s2 = set(nums2)
-        
-        count1 = 0
-        count2 = 0
-        
-        for x in nums1:
-            if x in s2:
-                count1 += 1
-                
-        for x in nums2:
-            if x in s1:
-                count2 += 1
-                
-        return [count1, count2]
-
-
-class Solution(object):
-    def findIntersectionValues(self, nums1, nums2):
         result = []
         dic = {}
         for num in nums1:
@@ -64,3 +45,23 @@ print(g.findIntersectionValues(nums1, nums2))
 
 
 
+'''
+class Solution(object):
+    def findIntersectionValues(self, nums1, nums2):
+        s1 = set(nums1)
+        s2 = set(nums2)
+        
+        count1 = 0
+        count2 = 0
+        
+        for x in nums1:
+            if x in s2:
+                count1 += 1
+                
+        for x in nums2:
+            if x in s1:
+                count2 += 1
+                
+        return [count1, count2]
+
+'''
