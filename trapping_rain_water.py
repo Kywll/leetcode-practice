@@ -9,32 +9,131 @@ it can trap after raining.
 
 
 My Thought Process:
+Whiteboard approach(intuition) - My approach was to first count the area of the first height that I will encounter, and from that point on, I then subtract any heights that is not greater than the current level
+to the total area. If I found 2 heights that is greater than the current level, I set the current level into that then add up the area on top of the previous level and starts subtracting the upcoming heights
+that is not greater than the current level now. I repeat this until I explored all heights.
 
+Code process - I used a two pointer pattern for this problem and I simply moved the pointer of the lower height otherwise just move the left one if it's equal. I then subtracted the height of the pointer
+that will is lower. I added an area whenever two heights was found that is greater than the current level, then set the current level to the lower one of those two.
 
 Time & space complexity:
-
+O(n) time
+O(1) space
 
 '''
 
 class Solution(object):
     def trap(self, height):
-        total_area = 0
         i = 0
         j = len(height)-1
 
-        prev_level = 0
+        total_area = 0
         cur_level = 0
+        prev_level = 0
 
-        highest_left = 0
-        highest_right = 0
         
         while i < j:
             if height[i] <= height[j]:
-                pass
+                if prev_level > 0:
+                    if height[i] > cur_level:
+                        total_area-=cur_level
+                    else:
+                        total_area -= height[i]
+
+            elif height[i] > height[j]:
+                if prev_level > 0:
+                    if height[j] > cur_level:
+                        total_area-=cur_level
+                    else:
+                        total_area -= height[j]
+
+            lower = height[i] if height[i] < height[j] else height[j]
+            elements_between = (j-i)-1
+            if lower > cur_level:
+                total_area += elements_between * (lower-cur_level)
+                cur_level = lower
+
+            if height[i] <= height[j]:
+                i+=1
+
+            elif height[i] > height[j]:
+                j-=1
+
+            prev_level = cur_level
+            print(total_area)
+        return total_area
+    
+#What I have to figure out
+#Do not reduce the first addition(the outermost heights)
+#Do reduce the current index but only once
 
 
-height = [0,1,0,2,1,0,1,3,2,1,2,1]
+g = Solution()
+height = [2,1,0,2]
+print(g.trap(height))
 
 
+'''
+class Solution(object):
+    def trap(self, height):
+        i = 0
+        j = len(height)-1
 
+        cur_level = height[i] if height[i] < height[j] else height[j]
 
+        highest_left = i
+        highest_right = j
+
+        elements_between = (j-i)-1
+
+        total_area = cur_level * elements_between
+        
+        i+=1
+        j-=1
+        while i < j:
+            if height[i] > cur_level:
+                if height[highest_left] > cur_level:
+                    elements_between = (i - highest_left)-1
+                    lower = height[highest_left] if height[highest_left] < height[i] else height[i]
+                    total_area += elements_between*(lower-cur_level)
+                    highest_left = highest_left if height[highest_left] > height[i] else height[i]
+                    
+                if height[highest_right] > cur_level:
+                    elements_between = (highest_right - i)-1
+                    lower = height[highest_right] if height[highest_right] < height[i] else height[i]
+                    total_area += elements_between*(lower-cur_level)
+                    cur_level = lower
+            
+            if height[j] > cur_level:
+                if height[highest_right] > cur_level:
+                    elements_between = (highest_left-j)-1
+                    lower = height[highest_right] if height[highest_right] < height[j] else height[j]
+                    total_area += elements_between*(lower-cur_level)
+                    highest_right = highest_right if height[highest_right] > height[i] else height[j]
+                    
+                if height[highest_left] > cur_level:
+                    elements_between = (j-highest_left)-1
+                    lower = height[highest_left] if height[highest_left] < height[i] else height[i]
+                    total_area += elements_between*(lower-cur_level)
+                    cur_level = lower
+
+            if height[i] > cur_level and height[j] > cur_level:
+                lower = height[j] if height[j] < height[i] else height[i]
+                elements_between = (j-i)-1
+                total_area += elements_between*(lower-cur_level)
+                cur_level = lower
+
+            if height[i] > cur_level:
+                total_area-=cur_level
+            else:
+                total_area -= height[i]
+            if height[j] > cur_level:
+                total_area-=cur_level
+            else:
+                total_area -= height[j]
+
+            i+=1
+            j-=1
+
+        return total_area
+'''
