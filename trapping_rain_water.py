@@ -74,66 +74,50 @@ print(g.trap(height))
 
 
 '''
+Revised Version:
+
+Just mixed the subtraction with the left and right pointer movement conditions 
+
+
+'''
+
 class Solution(object):
     def trap(self, height):
         i = 0
         j = len(height)-1
 
-        cur_level = height[i] if height[i] < height[j] else height[j]
+        total_area = 0
+        cur_level = 0
+        prev_level = 0
 
-        highest_left = i
-        highest_right = j
-
-        elements_between = (j-i)-1
-
-        total_area = cur_level * elements_between
-        
-        i+=1
-        j-=1
         while i < j:
-            if height[i] > cur_level:
-                if height[highest_left] > cur_level:
-                    elements_between = (i - highest_left)-1
-                    lower = height[highest_left] if height[highest_left] < height[i] else height[i]
-                    total_area += elements_between*(lower-cur_level)
-                    highest_left = highest_left if height[highest_left] > height[i] else height[i]
-                    
-                if height[highest_right] > cur_level:
-                    elements_between = (highest_right - i)-1
-                    lower = height[highest_right] if height[highest_right] < height[i] else height[i]
-                    total_area += elements_between*(lower-cur_level)
-                    cur_level = lower
-            
-            if height[j] > cur_level:
-                if height[highest_right] > cur_level:
-                    elements_between = (highest_left-j)-1
-                    lower = height[highest_right] if height[highest_right] < height[j] else height[j]
-                    total_area += elements_between*(lower-cur_level)
-                    highest_right = highest_right if height[highest_right] > height[i] else height[j]
-                    
-                if height[highest_left] > cur_level:
-                    elements_between = (j-highest_left)-1
-                    lower = height[highest_left] if height[highest_left] < height[i] else height[i]
-                    total_area += elements_between*(lower-cur_level)
-                    cur_level = lower
-
-            if height[i] > cur_level and height[j] > cur_level:
-                lower = height[j] if height[j] < height[i] else height[i]
-                elements_between = (j-i)-1
-                total_area += elements_between*(lower-cur_level)
+            lower = height[i] if height[i] < height[j] else height[j]
+            elements_between = (j-i)-1
+            if lower > cur_level:
+                total_area += elements_between * (lower-cur_level)
                 cur_level = lower
 
-            if height[i] > cur_level:
-                total_area-=cur_level
-            else:
-                total_area -= height[i]
-            if height[j] > cur_level:
-                total_area-=cur_level
-            else:
-                total_area -= height[j]
+            if height[i] <= height[j]:
+                if prev_level > 0:
+                    if height[i] > prev_level:
+                        total_area-=prev_level
+                    else:
+                        total_area -= height[i]
+                i+=1
 
-            i+=1
-            j-=1
-
+            elif height[i] > height[j]:
+                if prev_level > 0:
+                    if height[j] > prev_level:
+                        total_area-=prev_level
+                    else:
+                        total_area -= height[j]
+                j-=1
+                
+            prev_level = cur_level
+            
         return total_area
-'''
+    
+    
+g = Solution()
+height = [2,1,0,2]
+print(g.trap(height))
