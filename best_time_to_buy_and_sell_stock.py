@@ -39,4 +39,34 @@ print(g.maxProfit(prices))
 
 
 
+'''
+Sliding Window Solution:
+Basically a two pointer approach but you start them next to each other instead of end to end. I first counted if the right - left is the highest then I check if left is less than
+right which I then simply just put the left pointer to the index of the right pointer because I want to buy at the lowest possible price if possible. Then move the right
+pointer each iteration.
+
+Time & space complexity:
+O(n) time
+O(1) space
+'''
+
+class Solution(object):
+    def maxProfit(self, prices):
+        highest = 0
+        
+        l = 0
+        r = 1
+        while r < len(prices):
+            if prices[r] - prices[l] > highest:
+                highest = prices[r] - prices[l]
+            if prices[r] < prices[l]:
+                l = r
+            r+=1
+        return highest
+
+g = Solution()
+
+prices = [7,1,5,3,6,4]
+
+print(g.maxProfit(prices))
 
