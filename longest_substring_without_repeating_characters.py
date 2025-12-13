@@ -113,3 +113,44 @@ s = "abba"
 
 print(g.lengthOfLongestSubstring(s))
 
+
+
+'''
+Standard Solution:
+
+Thought Process:
+Basically allows you to no longer check a lot of cases manually. It besically just checks first
+if there is a duplicate which you just keep removing the left pointer or shrink the sliding window
+until a duplicate no longer exist in the set. Otherwise you just simply add the right pointer
+to the set then update the longest substring based on set length.
+
+What I learned:
+I could just start the right pointer at the start of the array, and I could simply check the right 
+right pointer and update the left pointer until it checks out.
+
+'''
+
+
+
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        longest = 0
+        charSet = set()
+
+        l = 0
+        for r in range(len(s)):
+            while s[r] in charSet:
+                charSet.remove(s[l])
+                l+=1
+
+            charSet.add(s[r])
+            longest = max(longest, len(charSet))
+
+        return longest
+
+
+g = Solution()
+
+s = "abba"
+
+print(g.lengthOfLongestSubstring(s))
