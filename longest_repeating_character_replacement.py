@@ -9,58 +9,54 @@ You are given a string s and an integer k. You can choose any character of the s
 Return the length of the longest substring containing the same letter you can get after performing the above operations.
 
 My Thought Process:
+The approach was to use a sliding window technique where I put the characters on a hashmap and
+then count their frequencies so far. I then calculated the length of the window minus the key of 
+the hashmap that has the highest value. This works because once we calculated that, we can simply
+check if it's greater than k, which means that we skipped too much letters and is now over what
+is allowed to be changed.
 
 Time & space complexity:
+O(n) time
+O(1) space
+
+What I learned:
+I learned that a sliding window technique should actually be followed because it's easier to
+visualize that way when you are following the window visual. It will then all matter on your 
+computation and how you shrink the window, basically just increase the size of the window until the 
+end and always check if the window should be shrinked or not.
 
 '''
 
 class Solution(object):
     def characterReplacement(self, s, k):
-        if len(s) == 0:
+        if not s:
             return 0
+        dic = {}
         longest = 0
         l = 0
-        r = 1
-        
-        for l in range(len(s)-1):
-            streak = 1
-            cur_k = k
-            for r in range(l, len(s)-1):
-                if s[l] != s[r]:
-                    cur_k -=1
-                streak+=1
-                longest = max(longest, streak)
-                if cur_k < 1:
-                    break
-    
+
+        most_freq = s[0]
+        for r in range(len(s)):
+            if s[r] in dic:
+                dic[s[r]] +=1 
+            else:
+                dic[s[r]] = 1 
+            if dic[most_freq] < dic[s[r]]:
+                most_freq = s[r]
+            if ((r-l)+1) - dic[most_freq] <= k:
+                longest = max(longest, ((r-l)+1))
+            else:
+                dic[s[l]] -=1
+                l+=1
+
         return longest
     
 g = Solution()
 
-s = "ABAB"
+s = "ABAB" 
 k = 2
 print(g.characterReplacement(s, k))
 
 
 
 
-
-
-
-'''
-streak = 1
-cur_k = k
-while cur_k >= 0 and r <= len(s)-1:
-    print([s[r]])
-    if s[l] != s[r]:
-        cur_k -=1
-    streak +=1
-    longest = max(streak, longest)
-
-    if cur_k <= 0:
-        l +=1
-        cur_k = k
-        streak = 1
-        r = l
-    r+=1
-'''
