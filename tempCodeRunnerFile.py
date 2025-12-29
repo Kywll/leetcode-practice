@@ -1,1 +1,1 @@
-                            if s[l] in countT and window[s[l]] >= countT[s[l]]:
+rate
