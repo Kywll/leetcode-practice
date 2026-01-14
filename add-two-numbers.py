@@ -71,6 +71,51 @@ g = Solution()
 print(g.addTwoNumbers(l1, l2).val)
 
 
+'''
+Optimal Solution:
+The idea was that since the linkedlists are reversed, you can just compute it like you would in 
+elementary addition way. You could the first nodes together and apply the carry to the next 
+operation that will be done one the next nodes. 
 
+Time Complextiy:
+O(n) time
+O(1) space
+
+What I learned:
+I learned that I could do node = node.next if node else None to prevent error if you're looping 2 
+linkedlists where it the condition is if either is true and they are not the same length. 
+'''
+
+
+class Solution:
+    def addTwoNumbers(self, l1, l2):
+        dummy = ListNode()
+        cur = dummy
+
+        carry = 0
+        while l1 or l2 or carry:
+            v1 = l1.val if l1 else 0
+            v2 = l2.val if l2 else 0
+
+            val = v1 + v2 + carry
+            carry = val // 10
+            val = val % 10
+            
+            cur.next = ListNode(val)
+            cur = cur.next
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
+
+        return dummy.next
+
+l1 = [2,4,3]
+l2 = [5,6,4]
+
+l1 = build_linked_list(l1)
+l2 = build_linked_list(l2)
+
+g = Solution()
+
+print(g.addTwoNumbers(l1, l2).val)
 
 
