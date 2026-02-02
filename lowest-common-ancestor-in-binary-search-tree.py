@@ -16,8 +16,8 @@ current node, if it is, just go to that direction. If they are not the same then
 LCA because both the p and q is split up and the only way for them to meet is through the current node.
 
 Time & space complexity:
-O(n) time
-O(n) space
+O(log n) time
+O(1) space
 
 What I learned:
 You could use an iterative approach for BST and you could just keep comparing if a node you have is greater or equals to
